@@ -1,0 +1,25 @@
+##property_list_key
+
+This is a Puppet module that will manage OS X plist files
+
+License
+-------
+Apache 2
+
+Contact
+-------
+Gary Larizza <gary@puppetlabs.com>
+
+Support
+-------
+None as of right now.  Good luck!
+
+Usage
+-------
+        property_list_key { 'test3':
+          ensure     => present,
+          domain     => '/tmp/com.puppetlabs.puppet',
+          key        => 'arraytest',
+          value      => ['array', 'values'],
+          value_type => 'array',
+        }
