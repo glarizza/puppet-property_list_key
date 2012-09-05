@@ -73,7 +73,7 @@ Puppet::Type.type(:property_list_key).provide(:osx) do
   def open_plist_file(file_path)
     retries = 1
     begin
-      plist_hash = Plist.parse_xml(read_file_contents(file_path))
+      Plist.parse_xml(read_file_contents(file_path))
     rescue => e
       if retries > 0
         plutil '-convert', 'xml1', file_path
@@ -83,8 +83,6 @@ Puppet::Type.type(:property_list_key).provide(:osx) do
         fail("Unable to open the file #{file_path}.  #{e.class}: #{e.inspect}")
       end
     end
-
-    plist_hash
   end
 
   def read_file_contents(file_path)
