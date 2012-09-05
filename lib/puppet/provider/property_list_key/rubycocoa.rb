@@ -54,7 +54,18 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   end
 
   def value
-    read_plist_file(@resource[:path])[@resource[:key]]
+    item_value = read_plist_file(@resource[:path])[@resource[:key]]
+    klass =  item_value.to_ruby.class
+
+    # The ugliness to make Puppet happy...
+    case [klass]
+    when [Fixnum]
+      Array(String(item_value))
+    when [Hash]
+      item_value
+    else
+      Array(item_value)
+    end
   end
 
   def value=(item_value)
