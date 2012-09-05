@@ -18,7 +18,7 @@ Usage
 -------
         property_list_key { 'test3':
           ensure     => present,
-          domain     => '/tmp/com.puppetlabs.puppet',
+          path       => '/tmp/com.puppetlabs.puppet',
           key        => 'arraytest',
           value      => ['array', 'values'],
           value_type => 'array',
