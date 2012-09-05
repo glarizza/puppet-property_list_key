@@ -71,7 +71,8 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   def value=(item_value)
     plist = read_plist_file(@resource[:path])
 
-    # EVERY value out of the resource becomes an array, so take the first value
+    # Values out of Puppet are usually strings...except when they aren't.
+    # They need to be massaged before writing to the plist
     case @resource[:value_type].downcase
     when 'integer'
       plist[@resource[:key]] = Integer(item_value.first)
