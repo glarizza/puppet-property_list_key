@@ -29,8 +29,6 @@ Puppet::Type.type(:property_list_key).provide(:osx) do
     case value_type
     when 'integer'
       plist_value = Integer(@resource[:value].first)
-    when 'array'
-      plist_value = Array(@resource[:value])
     else
       plist_value = @resource[:value].first
     end
