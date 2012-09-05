@@ -24,7 +24,7 @@ Puppet::Type.type(:property_list_key).provide(:osx) do
       plist_hash = Hash.new
     end
 
-    value_type = @resource[:value_type].downcase || 'string'
+    value_type = @resource[:value_type].downcase
 
     case value_type
     when 'integer'
