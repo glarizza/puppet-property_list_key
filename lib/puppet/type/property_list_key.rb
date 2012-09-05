@@ -11,8 +11,8 @@ Puppet::Type.newtype(:property_list_key) do
     desc "The value of the specified key"
   end
 
-  newparam(:domain) do
-    desc "The reverse domain of the key in question"
+  newparam(:path) do
+    desc "The path of the plist file"
   end
 
   newparam(:value_type) do
