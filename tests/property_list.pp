@@ -4,14 +4,15 @@ property_list_key { 'simple':
   key    => 'simple',
   value  => 'value',
 }
-property_list_key { 'test':
+
+property_list_key { 'hashtest':
   ensure => present,
   path => '/tmp/com.puppetlabs.puppet',
   key    => 'hashtest',
   value  => { 'key' => 'value' },
 }
 
-property_list_key { 'test3':
+property_list_key { 'arraytest':
   ensure     => present,
   path     => '/tmp/com.puppetlabs.puppet',
   key        => 'arraytest',
@@ -19,7 +20,7 @@ property_list_key { 'test3':
   value_type => 'array',
 }
 
-property_list_key { 'test2':
+property_list_key { 'integertest':
   ensure     => present,
   path     => '/tmp/com.puppetlabs.puppet',
   key        => 'integertest',
