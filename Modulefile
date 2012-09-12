@@ -1,11 +1,8 @@
-name    't-plist'
+name    'glarizza-property_list_key'
 version '0.0.1'
-source 'UNKNOWN'
-author 't'
+author 'Gary Larizza <gary@puppetlabs.com>'
 license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
+summary 'Property List key/value management in Puppet on OS X'
+description 'A simple type/provider for modeling property list key/values.'
+project_page 'http://github.com/glarizza/puppet-property_list_key'
 
-## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'

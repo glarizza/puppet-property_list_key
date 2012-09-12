@@ -23,3 +23,9 @@ Usage
           value      => ['array', 'values'],
           value_type => 'array',
         }
+
+Comments
+--------
+
+As of right now, this module has no tests for the provider - it should
+be considered experimental and beta code.
