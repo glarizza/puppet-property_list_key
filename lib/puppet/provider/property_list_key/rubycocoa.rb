@@ -2,7 +2,7 @@ begin
   require 'osx/cocoa'
   include OSX
 rescue LoadError
-  debug("Unable to load osx/cocoa library for property_list_key type.")
+  Puppet.debug("Unable to load osx/cocoa library for property_list_key type.")
 end
 
 Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
