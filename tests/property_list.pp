@@ -6,10 +6,11 @@ property_list_key { 'simple':
 }
 
 property_list_key { 'hashtest':
-  ensure => present,
-  path => '/tmp/com.puppetlabs.puppet',
-  key    => 'hashtest',
-  value  => { 'key' => 'value' },
+  ensure     => present,
+  path       => '/tmp/com.puppetlabs.puppet',
+  key        => 'hashtest',
+  value      => { 'key' => 'value' },
+  value_type => 'hash'
 }
 
 property_list_key { 'arraytest':
@@ -17,6 +18,16 @@ property_list_key { 'arraytest':
   path     => '/tmp/com.puppetlabs.puppet',
   key        => 'arraytest',
   value      => ['array', 'values'],
+  value_type => 'array',
+}
+
+  property_list_key { 'array_of_dicts':
+  ensure     => present,
+  path     => '/tmp/com.puppetlabs.puppet',
+  key        => 'array_of_dicts',
+  value      => [ {
+                    'array'  => 'of',
+                    'values' => 'dicts' }],
   value_type => 'array',
 }
 
