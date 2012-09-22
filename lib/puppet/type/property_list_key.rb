@@ -1,3 +1,4 @@
+require 'pathname'
 Puppet::Type.newtype(:property_list_key) do
   desc "A Puppet type to model property list files"
 
@@ -13,6 +14,13 @@ Puppet::Type.newtype(:property_list_key) do
 
   newparam(:path) do
     desc "The path of the plist file"
+
+    validate do |value|
+      path = Pathname.new(value)
+      unless path.absolute?
+        raise Puppet::Error, "Path must be absolute: #{value}"
+      end
+    end
   end
 
   newparam(:value_type) do
