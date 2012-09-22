@@ -26,6 +26,7 @@ Puppet::Type.newtype(:property_list_key) do
   newparam(:value_type) do
     desc "The value type for the plist key's value"
 
+    newvalues('string', 'boolean', 'array', 'hash', 'integer')
     defaultto 'string'
   end
 

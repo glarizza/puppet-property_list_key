@@ -75,6 +75,12 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
       plist[resource[:key]] = Integer(item_value.first)
     when :array
       plist[resource[:key]] = item_value
+    when :boolean
+      if item_value.first == ('false' || ':false')
+        plist[resource[:key]] = false
+      else
+        plist[resource[:key]] = true
+      end
     else
       plist[resource[:key]] = item_value.first
     end
