@@ -57,11 +57,11 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
     # The ugliness to make Puppet happy...
     case [klass]
     when [Fixnum]
-      Array(String(item_value))
+      Array(String(item_value.to_ruby))
     when [Hash]
-      item_value
+      item_value.to_ruby
     else
-      Array(item_value)
+      Array(item_value.to_ruby)
     end
   end
 
