@@ -13,7 +13,7 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   def exists?
     return false unless File.file? resource[:path]
     if resource[:path].nil? or resource[:key].nil?
-      fail("The 'key' and 'domain' parameters are required for the property_list_key type")
+      fail("The 'key' and 'path' parameters are required for the property_list_key type")
     end
 
     plist = read_plist_file(resource[:path])
