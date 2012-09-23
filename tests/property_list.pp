@@ -5,6 +5,14 @@ property_list_key { 'simple':
   value  => 'value',
 }
 
+property_list_key { 'boolean':
+  ensure     => present,
+  path       => '/tmp/com.puppetlabs.puppet',
+  key        => 'boolean',
+  value      => false,
+  value_type => 'boolean',
+}
+
 property_list_key { 'hashtest':
   ensure     => present,
   path       => '/tmp/com.puppetlabs.puppet',
@@ -35,7 +43,7 @@ property_list_key { 'integertest':
   ensure     => present,
   path     => '/tmp/com.puppetlabs.puppet',
   key        => 'integertest',
-  value      => '1',
+  value      => 1,
   value_type => 'integer',
 }
 

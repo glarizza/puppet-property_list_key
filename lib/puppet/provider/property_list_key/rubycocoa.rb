@@ -21,6 +21,12 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   end
 
   def create
+    if resource[:value_type] == :boolean
+      unless resource[:value].first.to_s =~ /(true|false)/i
+        raise Puppet::Error, "Valid boolean values are 'true' or 'false', you specified '#{resource[:value].first}'"
+      end
+    end
+
     if File.file? resource[:path]
       plist = read_plist_file(resource[:path])
     else
@@ -30,8 +36,16 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
     case resource[:value_type]
     when :integer
       plist_value = Integer(resource[:value].first)
-    else
+    when :boolean
+      if resource[:value].to_s =~ /false/i
+        plist_value = false
+      else
+        plist_value = true
+      end
+    when :hash
       plist_value = resource[:value].first
+    else
+      plist_value = resource[:value]
     end
 
     plist[resource[:key]] = plist_value
@@ -52,20 +66,15 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   end
 
   def value
-    item_value = read_plist_file(resource[:path])[resource[:key]]
-    klass =  item_value.to_ruby.class
-    # The ugliness to make Puppet happy...
-    case [klass]
-    when [Fixnum]
-      Array(String(item_value.to_ruby))
-    when [Hash]
-      item_value.to_ruby
-    else
-      Array(item_value.to_ruby)
-    end
+    read_plist_file(resource[:path])[resource[:key]].to_ruby
   end
 
   def value=(item_value)
+    if resource[:value_type] == :boolean
+      unless item_value.to_s =~ /(true|false)/i
+        raise Puppet::Error, "Valid boolean values are 'true' or 'false', you specified '#{item_value}'"
+      end
+    end
     plist = read_plist_file(resource[:path])
 
     # Values out of Puppet are usually strings...except when they aren't.
@@ -73,10 +82,10 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
     case resource[:value_type]
     when :integer
       plist[resource[:key]] = Integer(item_value.first)
-    when :array
+    when :array, :hash
       plist[resource[:key]] = item_value
     when :boolean
-      if item_value.first == ('false' || ':false')
+      if item_value.to_s =~ /false/i
         plist[resource[:key]] = false
       else
         plist[resource[:key]] = true
