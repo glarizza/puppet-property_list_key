@@ -12,10 +12,14 @@ Puppet::Type.newtype(:property_list_key) do
     desc "The value of the specified key"
 
     # Overwriting the insync? method to handle how Puppet string-ifies
-    # all passed values. When you deal with things like Boolean values,
-    # it's a giant pain to make sure they're in sync with passed string
-    # values (especially when Puppet pulls in Should values as
-    # A DAMN ARRAY).
+    # all passed values. Because array_matching is set to :all, values
+    # set in the resource declaration get passed to Puppet wrapped
+    # within an array. The two edge cases here are boolean values and
+    # integers (you can't pass an integer or boolean using the Puppet
+    # DSL - they get cast as strings). Arrays also don't get wrapped
+    # inside ANOTHER array since they already are of class Array. As
+    # a result, we super up to handle their insync? comparison. Yes,
+    # this whole method is all Array's fault <points and sneers>.
     def insync?(is)
       case resource[:value_type]
       when :boolean
