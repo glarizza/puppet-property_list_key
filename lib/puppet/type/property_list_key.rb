@@ -10,6 +10,29 @@ Puppet::Type.newtype(:property_list_key) do
 
   newproperty(:value, :array_matching => :all) do
     desc "The value of the specified key"
+
+    # Overwriting the insync? method to handle how Puppet string-ifies
+    # all passed values. When you deal with things like Boolean values,
+    # it's a giant pain to make sure they're in sync with passed string
+    # values (especially when Puppet pulls in Should values as
+    # A DAMN ARRAY).
+    def insync?(is)
+      case resource[:value_type]
+      when :boolean
+        case should.first
+        when 'true', true
+          [true, 'true'].include?(is.to_s) ? true : false
+        when 'false', false
+          [false, 'false'].include?(is.to_s) ? true : false
+        end
+      when :hash, :string
+        should.first == is ? true : false
+      when :integer
+        should.first.to_i == is ? true : false
+      else
+        super
+      end
+    end
   end
 
   newparam(:path) do
