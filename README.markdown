@@ -24,3 +24,4 @@ Usage
           value_type => 'array',
         }
 
+See more usage information in the `tests/property_list.pp` file
