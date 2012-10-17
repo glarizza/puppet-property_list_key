@@ -6,10 +6,6 @@ It's important that you set the value\_type attribute, especially if you're tryi
 
 Finally, this type currently can only manage an ENTIRE hash if you specify a value\_type of 'hash'. Ideally, it would be nice to manage individual hash keys/values, but the mechanics of that have yet to be sussed out.
 
-License
--------
-Apache 2
-
 Contact
 -------
 Gary Larizza <gary@puppetlabs.com>
@@ -22,6 +18,14 @@ Usage
           key        => 'arraytest',
           value      => ['array', 'values'],
           value_type => 'array',
+        }
+
+        # Disable Gatekeeper in 10.8
+        property_list_key { 'Disable Gatekeeper':
+          ensure => present,
+          path   => '/var/db/SystemPolicy-prefs.plist',
+          key    => 'enabled',
+          value  => 'no',
         }
 
 See more usage information in the `tests/property_list.pp` file
