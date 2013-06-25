@@ -128,6 +128,35 @@ describe 'The rubycocoa provider for the property_list_key type' do
     provider.value.should == 8
   end
 
+  it 'should write a real value if an integer value_type is passed' do
+    resource[:value] = '4'
+    resource[:value_type] = :real
+    provider.create
+    provider.value.class.should == Float
+  end
+
+  it 'should write a real value if a float value_type is passed' do
+    resource[:value] = '4.0'
+    resource[:value_type] = :real
+    provider.create
+    provider.value.class.should == Float
+  end
+
+  it 'should set a real value' do
+    resource[:value] = '4'
+    resource[:value_type] = :real
+    provider.create
+    provider.value.should == 4.0
+  end
+
+  it 'should set a float value with value=' do
+    resource[:value] = '4.0'
+    resource[:value_type] = :real
+    provider.create
+    provider.value = '8.0'
+    provider.value.should == 8.0
+  end
+
   it 'should write an array value if an array value_type is passed' do
     resource[:value] = ['array', 'of', 'values']
     resource[:value_type] = :array

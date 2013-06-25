@@ -36,6 +36,8 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
     case resource[:value_type]
     when :integer
       plist_value = Integer(resource[:value].first)
+    when :real
+      plist_value = Float(resource[:value].first)
     when :boolean
       if resource[:value].to_s =~ /false/i
         plist_value = false
@@ -82,6 +84,8 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
     case resource[:value_type]
     when :integer
       plist[resource[:key]] = Integer(item_value.first)
+    when :real
+      plist[resource[:key]] = Float(item_value.first)
     when :array, :hash
       plist[resource[:key]] = item_value
     when :boolean
