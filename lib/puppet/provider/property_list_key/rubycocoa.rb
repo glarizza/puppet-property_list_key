@@ -86,7 +86,7 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
       plist[resource[:key]] = Integer(item_value.first)
     when :real
       plist[resource[:key]] = Float(item_value.first)
-    when :array, :hash
+    when :array
       plist[resource[:key]] = item_value
     when :boolean
       if item_value.to_s =~ /false/i
