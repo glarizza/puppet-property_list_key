@@ -1,14 +1,10 @@
-begin
-  require 'osx/cocoa'
-  include OSX
-rescue LoadError
-  Puppet.debug("Unable to load osx/cocoa library for property_list_key type.")
-end
+include OSX if Puppet.features.rubycocoa?
 
 Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   desc "An OS X provider for creating property list keys and values"
 
-  defaultfor :operatingsystem => :darwin
+  defaultfor :feature => :rubycocoa
+  confine    :feature => :rubycocoa
 
   def exists?
     return false unless File.file? resource[:path]
