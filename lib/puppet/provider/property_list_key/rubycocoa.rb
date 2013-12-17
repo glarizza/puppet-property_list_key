@@ -40,7 +40,7 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
       else
         plist_value = true
       end
-    when :hash
+    when :hash, :string
       plist_value = resource[:value].first
     else
       plist_value = resource[:value]
