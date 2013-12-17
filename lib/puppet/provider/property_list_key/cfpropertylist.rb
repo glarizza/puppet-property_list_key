@@ -1,6 +1,3 @@
-#require 'rubygems' if RUBY_VERSION < '1.9.0' && Puppet.version < '3'
-#require 'CFPropertyList' if Puppet.features.cfpropertylist?
-
 Puppet::Type.type(:property_list_key).provide(:cfpropertylist) do
   desc "An OS X provider for creating property list keys and values"
 
