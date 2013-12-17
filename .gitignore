@@ -13,3 +13,4 @@ tmtags
 ## VIM
 *.swp
 tags
+vendor/ruby
