@@ -27,20 +27,26 @@ CFPropertyList is to either:
 
 * Update the version of CFPropertyList with `gem update`:
 
+```
     └(~/src/puppet-property_list_key)▷ sudo /usr/bin/gem update CFPropertyList
     Updating installed gems
     Updating CFPropertyList
     Fetching: CFPropertyList-2.2.5.gem (100%)
     Successfully installed CFPropertyList-2.2.5
     Gems updated: CFPropertyList
+```
 
 * Use Bundler and the provided Gemfile to `bundle install` your way to CFPropertyList
 
+```
     └(~/src/puppet-property_list_key)▷ bundle install
+```
 
 * Use `gem` to install the version of CFPropertyList you need
 
+```
     └(~/src/puppet-property_list_key)▷sudo /usr/bin/gem install CFPropertyList -v 2.2.5
+```
 
 Once you have the correct version of CFPropertyList available, the provider
 will be rendered suitable/available and life should get much better! Usage
