@@ -23,7 +23,8 @@ has a bug.**  Due to this bug, I'm requiring that CFPropertyList version
 2.2.5 or greater be installed in order to use the CFPropertyList provider
 (in fact, if you DON'T have that version or greater installed, Puppet will
 raise an error and the provider will not be available).  The way to install
-CFPropertyList is to either:
+CFPropertyList is to choose ONE of the following methods (i.e. CHOOSE THE
+BEST - DON'T TRY TO DO THEM ALL!):
 
 * Update the version of CFPropertyList with `gem update`:
 
@@ -36,13 +37,13 @@ CFPropertyList is to either:
     Gems updated: CFPropertyList
 ```
 
-* Use Bundler and the provided Gemfile to `bundle install` your way to CFPropertyList
+* OR use Bundler and the provided Gemfile to `bundle install` your way to CFPropertyList
 
 ```
     └(~/src/puppet-property_list_key)▷ bundle install
 ```
 
-* Use `gem` to install the version of CFPropertyList you need
+* OR use `gem` to install the version of CFPropertyList you need
 
 ```
     └(~/src/puppet-property_list_key)▷sudo /usr/bin/gem install CFPropertyList -v 2.2.5
