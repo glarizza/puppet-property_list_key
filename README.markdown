@@ -26,27 +26,35 @@ raise an error and the provider will not be available).  The way to install
 CFPropertyList is to choose ONE of the following methods (i.e. CHOOSE THE
 BEST - DON'T TRY TO DO THEM ALL!):
 
-* Update the version of CFPropertyList with `gem update`:
+* For [Boxen](https://github.com/boxen/our-boxen) Users, add the following to the `Gemfile` in the root of your Boxen repository:
+
+```
+gem 'CFPropertyList',         '>= 2.2.6'
+```
+
+This will allow Boxen to pull down the correct version of the gem and load it in Boxen's load path
+
+* For people using the system version of Rubygems, update the version of CFPropertyList with `gem update`:
 
 ```
     └(~/src/puppet-property_list_key)▷ sudo /usr/bin/gem update CFPropertyList
     Updating installed gems
     Updating CFPropertyList
-    Fetching: CFPropertyList-2.2.5.gem (100%)
-    Successfully installed CFPropertyList-2.2.5
+    Fetching: CFPropertyList-2.2.6.gem (100%)
+    Successfully installed CFPropertyList-2.2.6
     Gems updated: CFPropertyList
 ```
 
-* OR use Bundler and the provided Gemfile to `bundle install` your way to CFPropertyList
+* For users of Bundler, simply use the Gemfile I've provide to `bundle install` your way to CFPropertyList
 
 ```
     └(~/src/puppet-property_list_key)▷ bundle install
 ```
 
-* OR use `gem` to install the version of CFPropertyList you need
+* For users who are using the system version of Rubygems and don't have CFPropertyList installed, use `gem` to install the version of CFPropertyList you need
 
 ```
-    └(~/src/puppet-property_list_key)▷sudo /usr/bin/gem install CFPropertyList -v 2.2.5
+    └(~/src/puppet-property_list_key)▷sudo /usr/bin/gem install CFPropertyList -v 2.2.6
 ```
 
 Once you have the correct version of CFPropertyList available, the provider
