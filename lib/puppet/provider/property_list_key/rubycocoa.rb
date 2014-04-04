@@ -3,7 +3,6 @@ include OSX if Puppet.features.rubycocoa?
 Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   desc "An OS X provider for creating property list keys and values"
 
-  defaultfor :feature => :rubycocoa
   confine    :feature => :rubycocoa
 
   def exists?

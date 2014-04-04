@@ -1,8 +1,8 @@
 Puppet::Type.type(:property_list_key).provide(:cfpropertylist) do
   desc "An OS X provider for creating property list keys and values"
 
-  confine    :feature => :cfpropertylist
-  defaultfor :feature => :cfpropertylist
+  confine    :feature  => :cfpropertylist
+  defaultfor :osfamily => :darwin
 
   def exists?
     return false unless File.file? resource[:path]
