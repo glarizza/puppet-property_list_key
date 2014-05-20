@@ -10,5 +10,10 @@
   "description": "A simple type/provider for modeling property list key/values.",
   "dependencies": [
   
-  ]
+  ],
+  "operatingsystem_support": [
+       {
+           "operatingsystem":"Darwin",
+       }
+   ]
 }
