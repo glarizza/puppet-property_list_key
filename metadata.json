@@ -13,7 +13,7 @@
   ],
   "operatingsystem_support": [
        {
-           "operatingsystem":"Darwin",
+           "operatingsystem":"Darwin"
        }
    ]
 }
