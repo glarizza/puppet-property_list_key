@@ -4,7 +4,7 @@
   "author": "Gary Larizza <gary@puppetlabs.com>",
   "summary": "Property List key/value management in Puppet on OS X",
   "license": "Apache License, Version 2.0",
-  "source": "",
+  "source": "https://github.com/glarizza/puppet-property_list_key",
   "project_page": "http://github.com/glarizza/puppet-property_list_key",
   "issues_url": "https://github.com/glarizza/puppet-property_list_key/issues",
   "description": "A simple type/provider for modeling property list key/values.",
