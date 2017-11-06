@@ -32,6 +32,8 @@ Puppet::Type.type(:property_list_key).provide(:cfpropertylist) do
       plist_value = Integer(resource[:value].first)
     when :real
       plist_value = Float(resource[:value].first)
+    when :data
+      plist_value = CFPropertyList::Blob.new(resource[:value].first)
     when :boolean
       if resource[:value].to_s =~ /false/i
         plist_value = false
@@ -80,6 +82,8 @@ Puppet::Type.type(:property_list_key).provide(:cfpropertylist) do
       plist[resource[:key]] = Integer(item_value.first)
     when :real
       plist[resource[:key]] = Float(item_value.first)
+    when :data
+      plist[resource[:key]] = CFPropertyList::Blob.new(item_value.first)
     when :array
       plist[resource[:key]] = item_value
     when :boolean
