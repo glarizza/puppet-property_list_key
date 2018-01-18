@@ -3,7 +3,7 @@ require 'puppet/util/feature'
 Puppet.features.add(:cfpropertylist) do
   begin
     require 'cfpropertylist'
-  rescue
+  rescue LoadError
     false
   end
   true
