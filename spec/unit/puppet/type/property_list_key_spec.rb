@@ -1,15 +1,15 @@
 require 'puppet'
 require 'puppet/type/property_list_key'
 describe Puppet::Type.type(:property_list_key) do
-  let(:resource) {
+  let(:resource) do
     Puppet::Type.type(:property_list_key).new(
-                                    :name       => 'simple_string',
-                                    :path       => '/tmp/com.puppetlabs.puppet.plist',
-                                    :key        => 'simple',
-                                    :value      => 'value',
-                                    :value_type => 'string'
-                                   )
-  }
+      name: 'simple_string',
+      path: '/tmp/com.puppetlabs.puppet.plist',
+      key: 'simple',
+      value: 'value',
+      value_type: 'string'
+    )
+  end
 
   it 'is ensurable' do
     resource[:ensure] = :present
@@ -30,13 +30,13 @@ describe Puppet::Type.type(:property_list_key) do
 
   it 'raises an error if an absolute path is not passed' do
     expect { resource[:path] = 'foo' }.to raise_error Puppet::Error,
-      /Path must be absolute:/
+                                                      /Path must be absolute:/
   end
 
-  %w{ string boolean integer real hash array }.each do |value|
+  %w[string boolean integer real hash array].each do |value|
     it "accepts #{value} as a valid value_type" do
-        resource[:value_type] = value
-        resource[:value_type].should == value.intern
+      resource[:value_type] = value
+      resource[:value_type].should == value.intern
     end
   end
 

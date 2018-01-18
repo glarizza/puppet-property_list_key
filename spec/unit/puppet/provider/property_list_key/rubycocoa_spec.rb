@@ -15,13 +15,11 @@ describe 'The rubycocoa provider for the property_list_key type' do
   let(:test_dir) { Dir.mktmpdir }
   let(:resource) do
     Puppet::Type::Property_list_key.new(
-      {
-        :name       => 'string_resource',
-        :path       => File.join(test_dir, 'string.plist'),
-        :key        => 'string',
-        :value      => 'string value',
-        :value_type => 'string'
-      }
+      name: 'string_resource',
+      path: File.join(test_dir, 'string.plist'),
+      key: 'string',
+      value: 'string value',
+      value_type: 'string'
     )
   end
   let(:provider) { Puppet::Type.type(:property_list_key).provider(:rubycocoa).new(resource) }
@@ -95,7 +93,7 @@ describe 'The rubycocoa provider for the property_list_key type' do
     resource[:value] = 'bad'
     resource[:value_type] = :boolean
     expect { provider.create }.to raise_error Puppet::Error, \
-      /Valid boolean values are 'true' or 'false', you specified 'bad'/
+                                              /Valid boolean values are 'true' or 'false', you specified 'bad'/
   end
 
   it 'should raise an error if an invalid boolean value is set' do
@@ -103,14 +101,14 @@ describe 'The rubycocoa provider for the property_list_key type' do
     resource[:value_type] = :boolean
     provider.create
     expect { provider.value = 'bad' }.to raise_error Puppet::Error, \
-      /Valid boolean values are 'true' or 'false', you specified 'bad'/
+                                                     /Valid boolean values are 'true' or 'false', you specified 'bad'/
   end
 
   it 'should write an integer value if an integer value_type is passed' do
     resource[:value] = '4'
     resource[:value_type] = :integer
     provider.create
-    provider.value.class.should == Fixnum
+    provider.value.class.should == Integer
   end
 
   it 'should set an integer value' do
@@ -158,25 +156,25 @@ describe 'The rubycocoa provider for the property_list_key type' do
   end
 
   it 'should write an array value if an array value_type is passed' do
-    resource[:value] = ['array', 'of', 'values']
+    resource[:value] = %w[array of values]
     resource[:value_type] = :array
     provider.create
     provider.value.class.should == Array
   end
 
   it 'should set an array value' do
-    resource[:value] = ['array', 'of', 'values']
+    resource[:value] = %w[array of values]
     resource[:value_type] = :array
     provider.create
-    provider.value.should == ['array', 'of', 'values']
+    provider.value.should == %w[array of values]
   end
 
   it 'should set an array value with value=' do
-    resource[:value] = ['array', 'of', 'values']
+    resource[:value] = %w[array of values]
     resource[:value_type] = :array
     provider.create
-    provider.value = ['new', 'array', 'of', 'values']
-    provider.value.should == ['new', 'array', 'of', 'values']
+    provider.value = %w[new array of values]
+    provider.value.should == %w[new array of values]
   end
 
   it 'should write a hash value if a hash value_type is passed' do
@@ -214,17 +212,17 @@ describe 'The rubycocoa provider for the property_list_key type' do
   end
 
   it 'insync? on the value type should return true if an array "is" value matches the "should" value' do
-    resource[:value] = ['an', 'array', 'value']
+    resource[:value] = %w[an array value]
     resource[:value_type] = :array
     provider.create
-    resource.property(:value).insync?(['an', 'array', 'value']).should be_true
+    resource.property(:value).insync?(%w[an array value]).should be_true
   end
 
   it 'insync? on the value type should return false if an array "is" value does not match the "should" value' do
-    resource[:value] = ['an', 'array', 'value']
+    resource[:value] = %w[an array value]
     resource[:value_type] = :array
     provider.create
-    resource.property(:value).insync?(['bad', 'array']).should be_false
+    resource.property(:value).insync?(%w[bad array]).should be_false
   end
 
   # It's important to note that in the boolean insync? tests, all values
@@ -249,14 +247,14 @@ describe 'The rubycocoa provider for the property_list_key type' do
     resource[:value] = [{ 'hash' => 'value' }]
     resource[:value_type] = :hash
     provider.create
-    resource.property(:value).insync?({ 'hash' => 'value' }).should be_true
+    resource.property(:value).insync?('hash' => 'value').should be_true
   end
 
   it 'insync? on the value type should return false if a hash "is" value does not match the "should" value' do
     resource[:value] = [{ 'hash' => 'value' }]
     resource[:value_type] = :hash
     provider.create
-    resource.property(:value).insync?({'bad' => 'hash'}).should be_false
+    resource.property(:value).insync?('bad' => 'hash').should be_false
   end
 
   # It's important to note that in the integer insync? tests, all values
@@ -277,4 +275,3 @@ describe 'The rubycocoa provider for the property_list_key type' do
     resource.property(:value).insync?(33).should be_false
   end
 end
-

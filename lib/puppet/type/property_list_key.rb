@@ -1,6 +1,6 @@
 require 'pathname'
 Puppet::Type.newtype(:property_list_key) do
-  desc "A Puppet type to model property list files"
+  desc 'A Puppet type to model property list files'
 
   ensurable
 
@@ -8,8 +8,8 @@ Puppet::Type.newtype(:property_list_key) do
     desc "The name of the key for which we're ensuring absent/present"
   end
 
-  newproperty(:value, :array_matching => :all) do
-    desc "The value of the specified key"
+  newproperty(:value, array_matching: :all) do
+    desc 'The value of the specified key'
 
     # Overwriting the insync? method to handle how Puppet string-ifies
     # all passed values. Because array_matching is set to :all, values
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:property_list_key) do
   end
 
   newparam(:path) do
-    desc "The path of the plist file"
+    desc 'The path of the plist file'
 
     validate do |value|
       path = Pathname.new(value)
@@ -57,7 +57,7 @@ Puppet::Type.newtype(:property_list_key) do
     defaultto 'string'
   end
 
-  newparam(:name, :namevar => true) do
-    desc "Arbitrary namevar"
+  newparam(:name, namevar: true) do
+    desc 'Arbitrary namevar'
   end
 end
