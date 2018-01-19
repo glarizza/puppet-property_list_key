@@ -1,14 +1,14 @@
 include OSX if Puppet.features.rubycocoa?
 
 Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
-  desc "An OS X provider for creating property list keys and values"
+  desc 'An OS X provider for creating property list keys and values'
 
-  confine    :feature => :rubycocoa
+  confine feature: :rubycocoa
 
   def exists?
     return false unless File.file? resource[:path]
-    if resource[:path].nil? or resource[:key].nil?
-      fail("The 'key' and 'path' parameters are required for the property_list_key type")
+    if resource[:path].nil? || resource[:key].nil?
+      raise("The 'key' and 'path' parameters are required for the property_list_key type")
     end
 
     plist = read_plist_file(resource[:path])
@@ -22,11 +22,11 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
       end
     end
 
-    if File.file? resource[:path]
-      plist = read_plist_file(resource[:path])
-    else
-      plist = OSX::NSMutableDictionary.alloc.init
-    end
+    plist = if File.file? resource[:path]
+              read_plist_file(resource[:path])
+            else
+              OSX::NSMutableDictionary.alloc.init
+            end
 
     case resource[:value_type]
     when :integer
@@ -34,11 +34,11 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
     when :real
       plist_value = Float(resource[:value].first)
     when :boolean
-      if resource[:value].to_s =~ /false/i
-        plist_value = false
-      else
-        plist_value = true
-      end
+      plist_value = if resource[:value].to_s =~ /false/i
+                      false
+                    else
+                      true
+                    end
     when :hash, :string
       plist_value = resource[:value].first
     else
@@ -84,11 +84,11 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
     when :array
       plist[resource[:key]] = item_value
     when :boolean
-      if item_value.to_s =~ /false/i
-        plist[resource[:key]] = false
-      else
-        plist[resource[:key]] = true
-      end
+      plist[resource[:key]] = if item_value.to_s =~ /false/i
+                                false
+                              else
+                                true
+                              end
     else
       plist[resource[:key]] = item_value.first
     end
@@ -97,19 +97,14 @@ Puppet::Type.type(:property_list_key).provide(:rubycocoa) do
   end
 
   def read_plist_file(file_path)
-    begin
-      OSX::NSMutableDictionary.dictionaryWithContentsOfFile(file_path)
-    rescue => e
-      fail("Unable to open the file #{file_path}.  #{e.class}: #{e.inspect}")
-    end
+    OSX::NSMutableDictionary.dictionaryWithContentsOfFile(file_path)
+  rescue => e
+    raise("Unable to open the file #{file_path}.  #{e.class}: #{e.inspect}")
   end
 
   def write_plist_file(plist, file_path)
-    begin
-      plist.writeToFile_atomically(file_path, true)
-    rescue
-      fail("Unable to write the file #{file_path}.  #{e.class}: #{e.inspect}")
-    end
+    plist.writeToFile_atomically(file_path, true)
+  rescue
+    raise("Unable to write the file #{file_path}.  #{e.class}: #{e.inspect}")
   end
 end
-
